@@ -149,8 +149,8 @@ function AddNewNote() {
   localStorage.setItem('hasSavedNote', 'true');
 
   try {
-    const backendUrl = 'https://your-backend.onrender.com/api/notes'; // 🔁 Replace this with your actual Render backend URL
-
+   const backendUrl = 'https://notestack-zfde.onrender.com/api/notes';
+ 
     if (isEditing) {
       await axios.put(`${backendUrl}/${noteToEdit._id}`, { content });
       toast.success('✏️ Note updated!');
