@@ -6,11 +6,13 @@ require('dotenv').config();
 
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST'],
+  origin: 'https://notestack-frontend-u4z4.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type'],
   credentials: true,
 };
+
+
 
 app.use(cors(corsOptions));
 
@@ -38,7 +40,7 @@ app.use('/api/notes', noteRoutes);
 
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on https://notestack-frontend-u4z4.onrender.com`);
 });
 
 

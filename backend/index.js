@@ -8,10 +8,12 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://notestack-frontend-u4z4.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type'],
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -40,5 +42,5 @@ app.get('*', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on https://notestack-frontend-u4z4.onrender.com`);
 });
