@@ -1,0 +1,28 @@
+/* AddNewNote.css */
+.ProseMirror {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  caret-color: #000;
+  position: relative;
+}
+
+.tiptap.is-editor-empty::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  color: #999;
+  font-style: italic;
+  pointer-events: none;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.tiptap.is-editor-empty::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  color: #999;
+  font-style: italic;
+  pointer-events: none;
+  font-size: clamp(1rem, 2.5vw, 1.4rem); /* 🔼 Scales well on all screens */
+  line-height: 1.6;
+  padding: clamp(1rem, 4vw, 2rem); /* aligns with editor padding */
+}
