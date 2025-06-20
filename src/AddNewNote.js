@@ -143,36 +143,33 @@ function AddNewNote() {
 }, []);
 
 
-  const handleSave = async () => {
+ const handleSave = async () => {
   const content = editor.getHTML();
-  console.log('Saving content:', content); // 👀 Check this in dev console
   setIsSaving(true);
   localStorage.setItem('hasSavedNote', 'true');
 
   try {
+    const backendUrl = 'https://your-backend.onrender.com/api/notes'; // 🔁 Replace this with your actual Render backend URL
+
     if (isEditing) {
-      await axios.put(`http://localhost:5000/api/notes/${noteToEdit._id}`, { content });
+      await axios.put(`${backendUrl}/${noteToEdit._id}`, { content });
       toast.success('✏️ Note updated!');
-      setIsEditing(false); 
     } else {
-      await axios.post('http://localhost:5000/api/notes', { content });
+      await axios.post(backendUrl, { content });
       toast.success('💾 Note saved!');
-      editor.commands.clearContent(); // ✅ Clear content
     }
-    setIsFadingOut(true);
+
     setTimeout(() => {
-    navigate('/');
-    }, 600);
-
-
-    
+      navigate('/');
+    }, 1200);
   } catch (error) {
-    console.error('❌ Save failed:', error);
+    console.error('❌ Save failed:', error.message || error);
     toast.error('Save failed');
   } finally {
     setIsSaving(false);
   }
 };
+
 
 
   const handleImageUpload = (event) => {
