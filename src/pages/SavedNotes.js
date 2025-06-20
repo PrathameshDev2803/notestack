@@ -11,7 +11,7 @@ function SavedNotes() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/notes');
+        const response = await axios.get('https://notestack-zfde.onrender.com/api/notes');
         setNotes(response.data);
         setLoading(false);
       } catch (error) {
@@ -29,7 +29,7 @@ const handleEdit = (note) => {
   const handleDelete = async (noteId) => {
   if (!window.confirm("Are you sure you want to delete this note?")) return;
   try {
-    await axios.delete(`http://localhost:5000/api/notes/${noteId}`);
+    await axios.delete(`https://notestack-zfde.onrender.com/api/notes/${noteId}`);
     setNotes(notes.filter(note => note._id !== noteId));
     toast.success("Note deleted!");
   } catch (error) {
