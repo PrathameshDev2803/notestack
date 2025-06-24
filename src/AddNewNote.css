@@ -6,6 +6,14 @@
   caret-color: #000;
   position: relative;
 }
+.ProseMirror img.custom-image{
+  max-width:100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 8px;
+  background-color: transparent;
+}
 
 .tiptap.is-editor-empty::before {
   content: attr(data-placeholder);
@@ -26,3 +34,4 @@
   line-height: 1.6;
   padding: clamp(1rem, 4vw, 2rem); /* aligns with editor padding */
 }
+

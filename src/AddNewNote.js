@@ -6,7 +6,6 @@ import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
-import Audio from './AudioExtension';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate} from 'react-router-dom';
@@ -20,12 +19,7 @@ function AddNewNote() {
   const [isEditing, setIsEditing] = useState(!!noteToEdit);
   const [bgTransition, setBgTransition] = useState(false);
   const [hasTyped, setHasTyped] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isRecording, setIsRecording] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const fileInputRef = useRef();
-  const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
   const navigate = useNavigate();
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [bgIndex, setBgIndex] = useState(0);
@@ -97,8 +91,7 @@ function AddNewNote() {
 
   const editor = useEditor({
     extensions: [
-      Audio,
-      Image.configure({ allowBase64: true, HTMLAttributes: { class: 'custom-image' } }),
+      
       TextStyle,
       Color,
       Highlight,
@@ -116,11 +109,7 @@ function AddNewNote() {
     setHasTyped(true); 
   }
 
-  if (node?.tagName === 'IMG' || node?.tagName === 'AUDIO') {
-    setSelectedImage(node);
-  } else {
-    setSelectedImage(null);
-  }
+ 
 }
 
   });
@@ -172,53 +161,10 @@ function AddNewNote() {
 
 
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file?.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        editor.chain().focus().setImage({ src: reader.result }).run();
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+ 
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      audioChunksRef.current = [];
-
-      mediaRecorderRef.current.ondataavailable = (e) => {
-        if (e.data.size > 0) audioChunksRef.current.push(e.data);
-      };
-
-      mediaRecorderRef.current.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        const url = URL.createObjectURL(blob);
-        editor.chain().focus().insertContent(`
-          <span class="audio-wrapper">
-            <button class="audio-delete-btn">×</button>
-            <audio controls src="${url}"></audio>
-          </span>
-        `).run();
-      };
-
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-    } catch (err) {
-      alert("Microphone access denied or unavailable.");
-      console.error(err);
-    }
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
-  };
-
+  
+  
   if (!editor) return null;
 
 const getButtonStyle = (isActive) => ({
@@ -245,15 +191,19 @@ const getButtonStyle = (isActive) => ({
 
   const currentBg = backgroundOptions[bgIndex];
   const backgroundStyle = currentBg.type === 'color'
-    ? { backgroundColor: currentBg.value }
+    ? { backgroundColor: currentBg.value,
+      backgroundImage: 'none',
+     }
     : {
         backgroundImage: `url(${currentBg.value})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'repeat',
         backgroundPosition: 'center',
+        backgroundColor: '#f8f8f8' // fallback
       };
 
   return (
+
     <div
     className={isFadingOut? 'fade-out':''} style={{ height: '100vh', width: '100%', ...backgroundStyle, transition: 'background 0.3s ease-in-out, transform 0.4s ease',     transform: bgTransition ? 'scale(1.02)' : 'scale(1)',
     }}>
@@ -303,10 +253,6 @@ const getButtonStyle = (isActive) => ({
         <button style={getButtonStyle(false)} onClick={() => {setBgTransition(true); setTimeout(() => setBgTransition(false), 500); setBgIndex((bgIndex + 1) % backgroundOptions.length);
 }}
  >🎨</button>
-        <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageUpload} style={{ display: 'none' }} />
-        <button style={getButtonStyle(false)} onClick={() => fileInputRef.current.click()}>🖼️</button>
-
-        <button style={getButtonStyle(isRecording)} onClick={isRecording ? stopRecording : startRecording}>{isRecording ? '⏹️' : '🎤'}</button>
 
         <button
           disabled={isSaving}
@@ -317,41 +263,8 @@ const getButtonStyle = (isActive) => ({
         </button>
       </div>
 
-      {selectedImage && (
-        <div style={{
-          position: 'fixed',
-          bottom: windowWidth <= 480 ? '160px' : '110px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: '#fff',
-          padding: '10px',
-          borderRadius: '12px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          display: 'flex',
-          flexDirection: windowWidth <= 480 ? 'column' : 'row',
-          gap: windowWidth <= 480 ? '8px' : '12px',
-          width: windowWidth <= 480 ? '90%' : 'auto',
-          maxWidth: '320px',
-          zIndex: 1001,
-        }}>
-          <input type="number" placeholder="Width" onChange={(e) => selectedImage.style.width = `${e.target.value}px`} style={{ 
-  width: windowWidth <= 480 ? '100%' : '80px',
-  padding: '6px',
-  border: '1px solid #ccc',
-  borderRadius: '6px'
-}}
-/>
-          <input type="number" placeholder="Height" onChange={(e) => selectedImage.style.height = `${e.target.value}px`} style={{ 
-  width: windowWidth <= 480 ? '100%' : '80px',
-  padding: '6px',
-  border: '1px solid #ccc',
-  borderRadius: '6px'
-}}
- />
-          <input type="number" placeholder="Rotate°" onChange={(e) => selectedImage.style.transform = `rotate(${e.target.value}deg)`}  />
-        </div>
-      )}
-    </div>
+         </div>
+    
     
   );
 }
