@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# NoteStack
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> A full-stack rich-text note-taking application focused on a clean editing experience and flexible note content.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+NoteStack is a web-based note editor built with React and a rich-text editing stack. It supports structured note creation, formatting, media embedding and local persistence, with an interface designed around distraction-free writing.
 
-### `npm start`
+## Highlights
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Rich-text editing powered by Tiptap
+- Text formatting, highlights and text colors
+- Image embedding and image resizing
+- Audio recording / note media support
+- Client-side note persistence
+- React Router based navigation
+- Toast-based user feedback
+- Responsive interface
+- Modular component-based React architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+**Frontend**
+- React 19
+- React Router
+- Tiptap
+- JavaScript
+- CSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Libraries**
+- Axios
+- React Toastify
+- Font Awesome
+- Tiptap extensions
 
-### `npm run build`
+## Architecture
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The application is organized around a React frontend with reusable editor and UI components. Note content is handled through the Tiptap editor and persisted on the client side, keeping the project lightweight and easy to run locally.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+- Node.js
+- npm
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/PrathameshDev2803/notestack.git
+cd notestack
+npm install
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application will start in development mode.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Why I Built It
 
-## Learn More
+I built NoteStack to go beyond a basic CRUD notes application and explore how a real editor behaves: rich text state, formatting extensions, media handling, routing, persistence and user feedback.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## What This Project Demonstrates
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React component architecture
+- Rich-text editor integration
+- Working with third-party editor extensions
+- Client-side state and persistence
+- Building interactive UI workflows
+- Structuring a practical frontend application
 
-### Code Splitting
+## Future Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Cloud synchronization
+- Authentication
+- Search and tagging
+- Note folders / workspaces
+- Backend persistence
+- Collaborative editing
 
-### Analyzing the Bundle Size
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Prathamesh Jadhav**
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Full-Stack Developer focused on PHP/Laravel, React and practical web applications.
