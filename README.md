@@ -2,6 +2,10 @@
 
 > A full-stack rich-text note-taking application focused on a clean editing experience and flexible note content.
 
+## Live Demo
+
+Try NoteStack here: [https://notestack-frontend-u4z4.onrender.com/](https://notestack-frontend-u4z4.onrender.com/)
+
 ## Overview
 
 NoteStack is a web-based note editor built with React and a rich-text editing stack. It supports structured note creation, formatting, media embedding and local persistence, with an interface designed around distraction-free writing.
