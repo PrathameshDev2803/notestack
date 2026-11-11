@@ -4,7 +4,7 @@
 
 ## Live Demo
 
-Try NoteStack here: [https://notestack-frontend-u4z4.onrender.com/](https://notestack-frontend-u4z4.onrender.com/)
+**[https://notestack.prathameshjadhav.com/](https://notestack.prathameshjadhav.com/)**
 
 ## Overview
 
